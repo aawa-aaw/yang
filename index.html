@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>360环视</title>
+<style>
+body{background:#ffffff;margin:0;padding:20px;}
+#wrap{max-width:700px;margin:0 auto;text-align:center;}
+#show{max-width:100%;}
+</style>
+</head>
+<body>
+<div id="wrap">
+  <img id="show" src="0_0.png">
+</div>
+
+<script>
+const total = 18;
+let idx = 0;
+let dragStartX = 0;
+let currentX = 0;
+const img = document.getElementById('show');
+
+function setImage(i){
+  idx = ((i % total)+total)%total;
+  img.src = "0_"+idx+".png";
+}
+
+img.onmousedown=function(e){
+  dragStartX = e.clientX;
+  currentX = idx;
+  document.onmousemove=function(ev){
+    let dx = ev.clientX - dragStartX;
+    let step = Math.round(dx / 12);
+    setImage(currentX + step);
+  }
+  document.onmouseup=function(){
+    document.onmousemove=null;
+    document.onmouseup=null;
+  }
+}
+</script>
+</body>
+</html>
